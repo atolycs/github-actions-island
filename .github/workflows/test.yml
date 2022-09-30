@@ -27,9 +27,13 @@ jobs:
               env:
                 GH_TOKEN: ${{ steps.generate_token.outputs.token }}
               run: |
-                 gh issue create \
-                     --title "This is Test Bot" \
-                     --body "Welcome to Github Apps"
+                echo "Check to [here](https://github.com/atolycs/ardent-repo.git) and Run\`sudo pacman -Sy\`\nIf No problem then add Label\`lgtm\`" | \ 
+                gh issue create \
+                   --title "[$(date +%Y%m%d-%H%m%S)] ArdentLinux Builded." \
+                   --body-file - 
+#                 gh issue create \
+#                     --title "This is Test Bot" \
+#                     --body "Welcome to Github Apps"
                
 #    create_issue:
 #         runs-on: ubuntu-22.04
