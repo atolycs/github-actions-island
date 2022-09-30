@@ -4,6 +4,8 @@ on:
 jobs:
     generate_token:
        runs-on: ubuntu-22.04
+       outputs:
+          output1: ${{ steps.generate_token.outputs.token }}
        steps: 
             - name: Generate One Time Token
               id: generate_token
@@ -16,4 +18,15 @@ jobs:
                 TOKEN: ${{ steps.generate_token.outputs.token }}
               run: |
                 echo "Masked Token: ${TOKEN}"
-    
+   create_issue:
+        runs-on: ubuntu-22.04
+        needs: generate_token
+        steps:
+            - name: Create Issue on bot
+              env:
+                GH_TOKEN: ${{ needs.generate_token.outputs.output1 }}
+              run: |
+                gh issue create \
+                    --title "This is Test Bot" \
+                    --body "Welcome to Github Apps" \
+
