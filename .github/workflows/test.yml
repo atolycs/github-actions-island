@@ -2,9 +2,9 @@ on:
    workflow_dispatch:
 
 jobs:
-    runs-on: ubuntu-22.04
     generate_token:
-        steps: 
+       runs-on: ubuntu-22.04
+       steps: 
             - name: Generate One Time Token
               id: generate_token
               uses: tibdex/github-app-token@v1
