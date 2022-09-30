@@ -28,5 +28,5 @@ jobs:
               run: |
                 gh issue create \
                     --title "This is Test Bot" \
-                    --body "Welcome to Github Apps" \
+                    --body "Welcome to Github Apps"
 
