@@ -7,6 +7,9 @@ jobs:
        outputs:
           output1: ${{ steps.gend_token.outputs.test }}
        steps: 
+            - name: Checkout
+              uses: actions/checkout@v3
+
             - name: Generate One Time Token
               id: generate_token
               uses: tibdex/github-app-token@v1
@@ -20,16 +23,24 @@ jobs:
               run: |
                 echo "Masked Token: ${TOKEN}"
                 echo "::set-output name=test::${TOKEN}"
-    create_issue:
-         runs-on: ubuntu-22.04
-         needs: gen_token
-         steps:
-             - name: Create Issue on bot
-               env:
-                 GH_TOKEN: ${{ needs.gen_token.outputs.output1 }}
-               run: |
-                 echo ${GH_TOKEN}
+            - name: Create Issue on bot
+              env:
+                GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+              run: |
                  gh issue create \
                      --title "This is Test Bot" \
                      --body "Welcome to Github Apps"
+               
+#    create_issue:
+#         runs-on: ubuntu-22.04
+#         needs: gen_token
+#         steps:
+#             - name: Create Issue on bot
+#               env:
+#                 GH_TOKEN: ${{ needs.gen_token.outputs.output1 }}
+#               run: |
+#                 echo ${GH_TOKEN}
+#                 gh issue create \
+#                     --title "This is Test Bot" \
+#                     --body "Welcome to Github Apps"
 
