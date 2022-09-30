@@ -22,7 +22,7 @@ jobs:
                 echo "::set-output name=test::${TOKEN}"
     create_issue:
          runs-on: ubuntu-22.04
-         needs: generate_token
+         needs: gen_token
          steps:
              - name: Create Issue on bot
                env:
