@@ -28,6 +28,7 @@ jobs:
                env:
                  GH_TOKEN: ${{ needs.gen_token.outputs.output1 }}
                run: |
+                 echo ${GH_TOKEN}
                  gh issue create \
                      --title "This is Test Bot" \
                      --body "Welcome to Github Apps"
