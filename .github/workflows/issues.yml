@@ -20,8 +20,10 @@ jobs:
                 echo "::set-output name=build_list::$_BUILD_LIST"
 
             - name: Check Build Output
+              env:
+                BUILD_LIST: ${{ steps.issue_build_request.outputs.build_list }}
               run:
-                echo "BUILD: ${{ steps.issue_build_request.outputs.build_list }}"
+                echo "BUILD: ${BUILD_LIST}"
 
                 
 
