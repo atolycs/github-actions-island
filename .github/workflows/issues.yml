@@ -7,17 +7,23 @@ on:
 jobs:
     gen_token:
        runs-on: ubuntu-22.04
-       outputs:
-          output1: ${{ steps.gend_token.outputs.test }}
        steps: 
             - name: Checkout
               uses: actions/checkout@v3
             - name: Get Issue Comment
+              id: issue_build_request
               env:
                 NUMBER: ${{ github.event.issue.number }}
                 GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                gh issue view ${NUMBER}
+                _BUILD_LIST=$(gh issue view ${NUMBER} | grep "Build Request:" | sed -e "s/Build Request: //g")
+                echo "::set-output name=build_list::$_BUILD_LIST"
+
+            - name: Check Build Output
+              run:
+                echo "BUILD: ${{ steps.issue_build_request.outputs.build_list }}"
+
+                
 
               
 
