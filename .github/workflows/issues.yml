@@ -1,7 +1,8 @@
 on:
    workflow_dispatch:
    issues:
-      - [opened]
+        type:
+          - [opened]
 
 jobs:
     gen_token:
