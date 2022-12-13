@@ -22,7 +22,7 @@ jobs:
             - name: Check Build Output
               env:
                 BUILD_LIST: ${{ steps.issue_build_request.outputs.build_list }}
-              run:
+              run: |
                 echo "BUILD: ${BUILD_LIST}"
 
                 
