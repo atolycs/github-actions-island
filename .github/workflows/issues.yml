@@ -1,8 +1,7 @@
 on:
    workflow_dispatch:
    issues:
-        type:
-          - [opened]
+        types: [opened]
 
 jobs:
     build_length:
