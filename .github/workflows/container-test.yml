@@ -12,3 +12,7 @@ jobs:
           - name: Build Container
             run: |
                 docker build -t atolycs/build-env:latest -f ./.github/workflows/container/Dockerfile ./.github/workflows/container/
+
+          - name: Building...
+            run: echo "Running..."
+                   
