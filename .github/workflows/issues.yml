@@ -32,7 +32,7 @@ jobs:
                 echo $BUILD_LIST
     execute:
        name: Build
-       needs: gen_token
+       needs: build_length
        runs-on: ubuntu-22.04
        strategy:
            matrix:
