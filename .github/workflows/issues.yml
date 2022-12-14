@@ -5,7 +5,8 @@ on:
           - [opened]
 
 jobs:
-    gen_token:
+    build_length:
+       name: Get Request Build List
        runs-on: ubuntu-22.04
        outputs:
            values: ${{ steps.issue_build_request.outputs.build_list }}
@@ -30,6 +31,8 @@ jobs:
               run: |
                 echo $BUILD_LIST
     execute:
+       name: Build
+       run-name: Building ${{ matrix.build_packs }}
        needs: gen_token
        runs-on: ubuntu-22.04
        strategy:
