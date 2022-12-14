@@ -29,7 +29,7 @@ jobs:
                      | sed -e "s/Build Request: //g" \
                            -e "s/ //g" \
                            -e "s/^/\[\"/g" \
-                           -e "s/$/\"\]/g" 
+                           -e "s/$/\"\]/g" \
                            -e "s/,/\",\"/g")
                 echo "build_list=$_BUILD_LIST" >> $GITHUB_OUTPUT
 
