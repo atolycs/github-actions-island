@@ -32,7 +32,6 @@ jobs:
                 echo $BUILD_LIST
     execute:
        name: Build
-       run-name: Building ${{ matrix.build_packs }}
        needs: gen_token
        runs-on: ubuntu-22.04
        strategy:
