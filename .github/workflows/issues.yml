@@ -35,7 +35,7 @@ jobs:
        strategy:
            matrix:
               build_packs: ${{fromJSON(needs.gen_token.outputs.values)}}
-        steps:
+       steps:
           - name: Test with ${{ matrix.build_packs }}
             env:
               BUILD_NAME: ${{ matrix.build_packs }}
