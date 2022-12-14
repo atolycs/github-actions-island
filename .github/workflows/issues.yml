@@ -7,6 +7,8 @@ on:
 jobs:
     gen_token:
        runs-on: ubuntu-22.04
+       outputs:
+           values: ${{ steps.issue_build_request.outputs.build_list }}
        steps: 
             - name: Checkout
               uses: actions/checkout@v3
@@ -27,6 +29,17 @@ jobs:
                 BUILD_LIST: ${{ steps.issue_build_request.outputs.build_list }}
               run: |
                 echo $BUILD_LIST
-
+    execute:
+        needs: gen_token
+        runs-on: ubuntu-22.04
+        strategy:
+            matrix:
+                build_packs: ${{fromJSON(needs.gen_token.outputs.values)}}
+        steps:
+            - name: Test with ${{ matrix.build_packs }}
+              env:
+                BUILD_NAME: ${{ matrix.build_packs }}
+              run:
+                echo "Running: ${BUILD_NAME}"
               
 
