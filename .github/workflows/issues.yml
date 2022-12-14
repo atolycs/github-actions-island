@@ -4,7 +4,6 @@ on:
         types: [opened, reopened]
 
 jobs:
-    runs-on: ubuntu-22.04
     building_container:
        name: Build ArchLinux Container
        runs-on: ubuntu-22.04
