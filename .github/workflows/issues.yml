@@ -4,6 +4,12 @@ on:
         types: [opened, reopened]
 
 jobs:
+    building_container:
+       name: Build ArchLinux Container
+       steps:
+          - name: Checkout Dockerfile
+            uses: actions/checkout@v3
+
     build_length:
        name: Get Request Build List
        runs-on: ubuntu-22.04
@@ -20,8 +26,10 @@ jobs:
               run: |
                 _BUILD_LIST=$(gh issue view ${NUMBER} | grep "Build Request:" \
                      | sed -e "s/Build Request: //g" \
-                           -e "s/ //g" -e "s/^/\[\"/g" \
-                           -e "s/$/\"\]/g" -e "s/,/\",\"/g")
+                           -e "s/ //g" \
+                           -e "s/^/\[\"/g" \
+                           -e "s/$/\"\]/g" 
+                           -e "s/,/\",\"/g")
                 echo "build_list=$_BUILD_LIST" >> $GITHUB_OUTPUT
 
             - name: Check Build Output
@@ -31,7 +39,7 @@ jobs:
                 echo $BUILD_LIST
     execute:
        name: Build
-       needs: build_length
+       needs: [build_length, building_container]
        runs-on: ubuntu-22.04
        strategy:
            matrix:
