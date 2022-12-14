@@ -4,6 +4,7 @@ on:
         types: [opened, reopened]
 
 jobs:
+    runs-on: ubuntu-22.04
     building_container:
        name: Build ArchLinux Container
        steps:
@@ -12,7 +13,6 @@ jobs:
 
     build_length:
        name: Get Request Build List
-       runs-on: ubuntu-22.04
        outputs:
            values: ${{ steps.issue_build_request.outputs.build_list }}
        steps: 
@@ -40,7 +40,6 @@ jobs:
     execute:
        name: Build
        needs: [build_length, building_container]
-       runs-on: ubuntu-22.04
        strategy:
            matrix:
               build_packs: ${{fromJSON(needs.build_length.outputs.values)}}
