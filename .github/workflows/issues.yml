@@ -4,8 +4,8 @@ on:
         types: [opened, reopened]
 
 env:
-  DOCKER_STACK_IMAGE_PATH: container-image
-  CACHE_KEY: ardent-stack-image
+    DOCKER_STACK_IMAGE_PATH: container-image
+    CACHE_KEY: ardent-stack-image
 
 jobs:
     building_container:
