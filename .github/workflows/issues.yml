@@ -27,13 +27,12 @@ jobs:
                                        -e "s/^/\[\"/g" \
                                        -e "s/\,/\"\,\"/g" \
                                        -e "s/.$/\"\]/g" \
-                                       -e "s/ //g"
-                            )
+                                       -e "s/ //g")
                 echo "build_list=$_BUILD_LIST" >> $GITHUB_OUTPUT
 
             - name: Check Build Output
               env:
-                BUILD_LIST: ${{ steps.issue_build_request.outputs.build_list }}
+                BUILD_LIST: ${{ steps.issue_build_request.outputs.values }}
               run: |
                 echo $BUILD_LIST
     execute:
