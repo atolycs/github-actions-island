@@ -4,6 +4,7 @@ on:
 jobs:
    this_is_cache_test:
        name: Cache Test
+       runs-on: ubuntu-22.04
        steps:
           - name: Cache Get Test
             uses: actions/cache@v3
