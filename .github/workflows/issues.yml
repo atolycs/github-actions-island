@@ -44,23 +44,28 @@ jobs:
     execute:
        name: Build
        needs: [build_length, building_container]
-       runs-on: ubuntu-22.04
-       strategy:
-           matrix:
-              build_packs: ${{fromJSON(needs.build_length.outputs.values)}}
-       steps:
-          - name: Cache Restore
-            uses: actions/cache@v3
-            with:
-              path: container-image
-              key: ardent-container
+       uses: ./.github/workflows/build-stage.yml
+       with:
+         cache_path: container-image
+         cache_key: ardent-container
+         build_list: ${{fromJSON(needs.build_length.outputs.values)}}
 
-          - name: Test with ${{ matrix.build_packs }}
-            env:
-              BUILD_NAME: ${{ matrix.build_packs }}
-            run: |
-              #              echo "Running: ${BUILD_NAME}"
-              docker load -i container-image
-              docker run -t --rm atolycs/ardentlinux:build
+#       runs-on: ubuntu-22.04
+#       strategy:
+#           matrix:
+#              build_packs: ${{fromJSON(needs.build_length.outputs.values)}}
+#       steps:
+#          - name: Cache Restore
+#            uses: actions/cache@v3
+#            with:
+#              path: container-image
+#              key: ardent-container
+#
+#          - name: Test with ${{ matrix.build_packs }}
+#            env:
+#              BUILD_NAME: ${{ matrix.build_packs }}
+#            run: |
+#              echo "Running: ${BUILD_NAME}"
+#              docker load -i container-image
+#              docker run -t --rm atolycs/ardentlinux:build
               
-

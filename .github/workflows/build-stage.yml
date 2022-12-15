@@ -1,0 +1,43 @@
+name: ArdentLinux Package Build
+
+on:
+  workflow_call:
+      inputs:
+         cache_key:
+           type: string
+           description: 'cache key'
+           required: true
+         cache_path:
+           type: string
+           description: 'cache path'
+           required: true
+         build_list:
+           type: string
+           required: true
+           description: 'Package Build Branch List'
+
+jobs:
+  build_run:
+     runs-on: ubuntu-22.04
+     strategy:
+        matrix:
+            build_list: ${{fromJSON(inputs.build_list)}}
+     steps:
+        - name: Cache Restore
+          uses: actions/cache@v3
+          with:
+            path: ${{ inputs.cache_path }}
+            key: ${{ inputs.cache_key }}
+
+        - name: Checkout ${{ matrix.build_packs }}
+          uses: actions/checkout@v3
+          with:
+            ref: ${{ matrix.build_packs }}
+            path: ${{ matrix.build_packs }}
+            fetch-depth: 1
+
+        - name: Build ${{ matrix.build_packs }}
+          env:
+            BUILD_NAME: ${{ matrix.build_packs }}
+          run: |
+            ls -lsa
