@@ -6,7 +6,6 @@ on:
 jobs:
     building_container:
        name: Build ArchLinux Container
-       runs-on: ubuntu-22.04
        steps:
           - name: Checkout
             uses: actions/checkout@v3
