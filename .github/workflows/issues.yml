@@ -11,8 +11,8 @@ jobs:
     build_length:
        name: Get Request Build List
        runs-on: ubuntu-22.04
-       outputs:
-           values: ${{ steps.issue_build_request.outputs.build_list }}
+#       outputs:
+#           values: ${{ steps.issue_build_request.outputs.build_list }}
        steps: 
             - name: Checkout
               uses: actions/checkout@v3
@@ -27,7 +27,8 @@ jobs:
                                        -e "s/^/\[\"/g" \
                                        -e "s/\,/\"\,\"/g" \
                                        -e "s/.$/\"\]/g" \
-                                       -e "s/ //g" | jq -c)
+                                       -e "s/ //g")
+                echo "LIST: ${_BUILD_LIST}"
                 echo "build_list=$_BUILD_LIST" >> $GITHUB_OUTPUT
 
             - name: Check Build Output
