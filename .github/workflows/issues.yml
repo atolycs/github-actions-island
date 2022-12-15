@@ -34,6 +34,7 @@ jobs:
                                        -e "s/.$/\"\]/g" \
                                        -e "s/ //g")
                 echo "LIST: ${_BUILD_LIST}"
+                echo "COUNT: $(echo ${_BUILD_LIST} | jq '.[] | length')"
                 echo "build_list=$_BUILD_LIST" >> $GITHUB_OUTPUT
 
             - name: Check Build Output
