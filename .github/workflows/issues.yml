@@ -48,7 +48,7 @@ jobs:
        with:
          cache_path: container-image
          cache_key: ardent-container
-         build_list: ${{fromJSON(needs.build_length.outputs.values)}}
+         build_list: ${{needs.build_length.outputs.values}}
 
 #       runs-on: ubuntu-22.04
 #       strategy:
