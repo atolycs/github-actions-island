@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 env:
-  STACK_IMAGE: ${{ inputs.stack_image }}
+  DOCKER_CACHE_PATH: ${{ inputs.export_pathe }}
 
 jobs:
   build_container:
@@ -40,5 +40,5 @@ jobs:
         - name: Cache Container
           if: steps.cache-area.outputs.cache-hit != 'true'
           run: |
-            docker save atolycs/ardentlinux:build -o ${STACK_IMAGE}
+            docker save atolycs/ardentlinux:build -o ${DOCKER_CACHE_PATH}
 
