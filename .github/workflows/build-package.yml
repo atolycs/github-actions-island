@@ -2,7 +2,7 @@ name: Build ArdentLinux Container
 
 on:
   workflow_call:
-  workflow_dipatch:
+  workflow_dispatch:
 
 jobs:
   build_container:
