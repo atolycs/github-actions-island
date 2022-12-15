@@ -1,0 +1,16 @@
+name: Build ArdentLinux Container
+
+on:
+  workflow_call:
+  workflow_dipatch:
+
+jobs:
+  build_container:
+      runs-on: ubuntu-22.04
+      steps:
+        - name: Building Container...
+          run: |
+            docker build -t atolycs/ardentlinux:build \
+                  -f ./.github/workflows/container/Dockerfile \
+                  ./.github/workflows/container
+
