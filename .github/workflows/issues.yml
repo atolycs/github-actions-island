@@ -5,13 +5,7 @@ on:
 
 jobs:
     building_container:
-       name: Build ArchLinux Container
-       steps:
-          - name: Checkout
-            uses: actions/checkout@v3
-
-          - name: Build Container
-            uses: ./.github/workflows/build-package.yml
+       uses: ./.github/workflows/build-package.yml
 
     build_length:
        name: Get Request Build List
