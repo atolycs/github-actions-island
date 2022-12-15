@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 env:
-  DOCKER_CACHE_PATH: ${{ inputs.export_pathe }}
+  DOCKER_CACHE_PATH: ${{ inputs.export_path }}
 
 jobs:
   build_container:
