@@ -60,7 +60,7 @@ jobs:
               BUILD_NAME: ${{ matrix.build_packs }}
             run: |
               #              echo "Running: ${BUILD_NAME}"
-              docker load -i ardent-container
+              docker load -i container-image
               docker run -t --rm atolycs/ardentlinux:build
               
 
