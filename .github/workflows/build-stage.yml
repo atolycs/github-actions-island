@@ -32,7 +32,7 @@ jobs:
         - name: Checkout ${{ matrix.build_packs }}
           uses: actions/checkout@v3
           with:
-            ref: ${{ matrix.build_packs }}
+            ref: refs/heads/${{ matrix.build_packs }}
             path: ${{ matrix.build_packs }}
             fetch-depth: 1
 
