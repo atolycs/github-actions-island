@@ -8,6 +8,9 @@ jobs:
   build_container:
       runs-on: ubuntu-22.04
       steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
         - name: Building Container...
           run: |
             docker build -t atolycs/ardentlinux:build \
