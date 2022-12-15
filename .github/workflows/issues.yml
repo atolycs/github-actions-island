@@ -5,12 +5,11 @@ on:
    workflow_dispatch:
    issues:
         types: [opened, reopened]
-
-jobs:
-  env:
+env:
     DOCKER_STACK_IMAGE_PATH: container-image
     CACHE_KEY: ardent-stack-image
 
+jobs:
    building_container:
        name: Build Container
        uses: ./.github/workflows/build-image.yml
