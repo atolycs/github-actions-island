@@ -6,17 +6,17 @@ on:
    issues:
         types: [opened, reopened]
 
-env:
-  DOCKER_STACK_IMAGE_PATH: container-image
-  CACHE_KEY: ardent-stack-image
-
 jobs:
-    building_container:
+  env:
+    DOCKER_STACK_IMAGE_PATH: container-image
+    CACHE_KEY: ardent-stack-image
+
+   building_container:
        name: Build Container
        uses: ./.github/workflows/build-image.yml
        with:
-         export_path: ${{ env.DOCKER_STACK_IMAGE_PATH }}
-         stack_image: ${{ env.CACHE_KEY }}
+          export_path: ${{ env.DOCKER_STACK_IMAGE_PATH }}
+          stack_image: ${{ env.CACHE_KEY }}
     
     build_length:
        name: Get Request Build List
