@@ -11,8 +11,8 @@ jobs:
     build_length:
        name: Get Request Build List
        runs-on: ubuntu-22.04
-#       outputs:
-#           values: ${{ steps.issue_build_request.outputs.build_list }}
+       outputs:
+           values: ${{ steps.issue_build_request.outputs.build_list }}
        steps: 
             - name: Checkout
               uses: actions/checkout@v3
