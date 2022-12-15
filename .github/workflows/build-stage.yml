@@ -22,7 +22,7 @@ jobs:
      strategy:
         matrix:
             build_list: ${{fromJSON(inputs.build_list)}}
-     name: ${{ matrix.build_packs }}
+     run-name: ${{ matrix.build_packs }}
      steps:
         - name: Docker Builted Image Cache Restore
           uses: actions/cache@v3
