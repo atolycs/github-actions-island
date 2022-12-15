@@ -28,9 +28,10 @@ jobs:
           id: cache-area
           with:
             path: ${{ inputs.export_path }}
-            key: ${{ inputs.stack_image }}
+            key: ${{ inputs.stack_image }}-${{ hashFiles('**/Dockerfile') }}
 
         - name: Building Container...
+          if: steps.cache-area.outputs.cache-hit != 'true'
           run: |
             docker build -t atolycs/ardentlinux:build \
                   -f ./.github/workflows/container/Dockerfile \
