@@ -4,6 +4,9 @@ on:
   workflow_call:
   workflow_dispatch:
 
+env:
+  DOCKER_STACK_IMAGE: archstack-image
+
 jobs:
   build_container:
       runs-on: ubuntu-22.04
@@ -11,9 +14,21 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v3
 
+        - name: Cache Arena
+          uses: actions/cache@v3
+          id: cache-area
+          with:
+            path: ${{ env.DOCKER_STACK_IMAGE }}
+            key: dockerstack-${{ env.DOCKER_STACK_IMAGE }}
+
         - name: Building Container...
           run: |
             docker build -t atolycs/ardentlinux:build \
                   -f ./.github/workflows/container/Dockerfile \
                   ./.github/workflows/container
+
+        - name: Cache Container
+          if: steps.cache-area.outputs.cache-hit != 'true'
+          run: |
+            docker save atolycs/ardentlinux:build -o ${DOCKER_STACK_IMAGE}
 

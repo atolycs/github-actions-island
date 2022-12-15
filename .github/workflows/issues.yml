@@ -44,6 +44,12 @@ jobs:
            matrix:
               build_packs: ${{fromJSON(needs.build_length.outputs.values)}}
        steps:
+          - name: Cache Restore
+            uses: actions/cache@v3
+            with:
+              path: archstack-image
+              keys: dockerstack-archstack-image
+
           - name: Test with ${{ matrix.build_packs }}
             env:
               BUILD_NAME: ${{ matrix.build_packs }}
