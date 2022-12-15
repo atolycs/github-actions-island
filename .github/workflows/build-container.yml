@@ -2,10 +2,20 @@ name: Build ArdentLinux Container
 
 on:
   workflow_call:
+    inputs:
+       export_path:
+           required: true
+           type: string
+           description: 'Cache Export PATH'
+       stack_image:
+           required: true
+           type: string
+           description: 'Image name'
+
   workflow_dispatch:
 
 env:
-  DOCKER_STACK_IMAGE: archstack-image
+  STACK_IMAGE: ${{ inputs.stack_image }}
 
 jobs:
   build_container:
@@ -18,8 +28,8 @@ jobs:
           uses: actions/cache@v3
           id: cache-area
           with:
-            path: ${{ env.DOCKER_STACK_IMAGE }}
-            key: dockerstack-${{ env.DOCKER_STACK_IMAGE }}
+            path: ${{ inputs.export_path }}
+            key: ${{ inputs.stack_image }}
 
         - name: Building Container...
           run: |
@@ -30,5 +40,5 @@ jobs:
         - name: Cache Container
           if: steps.cache-area.outputs.cache-hit != 'true'
           run: |
-            docker save atolycs/ardentlinux:build -o ${DOCKER_STACK_IMAGE}
+            docker save atolycs/ardentlinux:build -o ${STACK_IMAGE}
 

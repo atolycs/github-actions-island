@@ -3,11 +3,17 @@ on:
    issues:
         types: [opened, reopened]
 
+env:
+  DOCKER_STACK_IMAGE_PATH: container-image
+  CACHE_KEY: ardent-stack-image
+
 jobs:
     building_container:
        name: Build Container
-       uses: ./.github/workflows/build-package.yml
-
+       uses: ./.github/workflows/build-image.yml
+       with:
+         export_path: ${{ env.DOCKER_STACK_IMAGE_PATH }}
+         stack_image: ${{ env.CACHE_KEY }}
     build_length:
        name: Get Request Build List
        runs-on: ubuntu-22.04
@@ -47,15 +53,15 @@ jobs:
           - name: Cache Restore
             uses: actions/cache@v3
             with:
-              path: archstack-image
-              key: dockerstack-archstack-image
+              path: ${{ env.DOCKER_STACK_IMAGE_PATH }}
+              key: ${{ env.CACHE_KEY }}
 
           - name: Test with ${{ matrix.build_packs }}
             env:
               BUILD_NAME: ${{ matrix.build_packs }}
             run: |
               #              echo "Running: ${BUILD_NAME}"
-              docker load -i archstack-image
+              docker load -i ${CACHE_KEY}
               docker run -t --rm atolycs/ardentlinux:build
               
 
