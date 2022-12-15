@@ -5,6 +5,7 @@ on:
 
 jobs:
     building_container:
+       name: Build Container
        uses: ./.github/workflows/build-package.yml
 
     build_length:
@@ -47,6 +48,6 @@ jobs:
               BUILD_NAME: ${{ matrix.build_packs }}
             run: |
               #              echo "Running: ${BUILD_NAME}"
-              docker run -it --rm atolycs/ardentlinux:build
+              docker run -t --rm atolycs/ardentlinux:build
               
 
