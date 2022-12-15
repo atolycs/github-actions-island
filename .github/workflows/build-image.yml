@@ -11,14 +11,13 @@ on:
            required: true
            type: string
            description: 'Image name'
-
   workflow_dispatch:
 
 env:
   DOCKER_CACHE_PATH: ${{ inputs.export_path }}
 
 jobs:
-  build_container:
+  build_image-packer:
       runs-on: ubuntu-22.04
       steps:
         - name: Checkout
@@ -34,8 +33,8 @@ jobs:
         - name: Building Container...
           run: |
             docker build -t atolycs/ardentlinux:build \
-                  -f ./.github/workflows/container/Dockerfile \
-                  ./.github/workflows/container
+                  -f ./.github/workflows/container/packer/Dockerfile \
+                  ./.github/workflows/container/packer
 
         - name: Cache Container
           if: steps.cache-area.outputs.cache-hit != 'true'

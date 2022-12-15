@@ -24,11 +24,17 @@ jobs:
             build_list: ${{fromJSON(inputs.build_list)}}
      name: ${{ matrix.build_packs }}
      steps:
-        - name: Cache Restore
+        - name: Docker Builted Image Cache Restore
           uses: actions/cache@v3
           with:
             path: ${{ inputs.cache_path }}
             key: ${{ inputs.cache_key }}
+
+        - name: Package cache Area
+          uses: actions/cache@v3
+          with:
+            path: package_artifacts/
+            key: pacman-package
 
         - name: Checkout ${{ matrix.build_packs }}
           uses: actions/checkout@v3
