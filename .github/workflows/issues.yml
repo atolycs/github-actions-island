@@ -10,7 +10,7 @@ env:
     CACHE_KEY: ardent-stack-image
 
 jobs:
-   building_container:
+    building_container:
        name: Build Container
        uses: ./.github/workflows/build-image.yml
        with:
