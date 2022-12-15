@@ -5,17 +5,13 @@ on:
    workflow_dispatch:
    issues:
         types: [opened, reopened]
-env:
-    DOCKER_STACK_IMAGE_PATH: container-image
-    CACHE_KEY: ardent-stack-image
-
 jobs:
     building_container:
        name: Build Container
        uses: ./.github/workflows/build-image.yml
        with:
-          export_path: ${{ env.DOCKER_STACK_IMAGE_PATH }}
-          stack_image: ${{ env.CACHE_KEY }}
+          export_path: container-image
+          stack_image: ardent-container
     
     build_length:
        name: Get Request Build List
@@ -56,15 +52,15 @@ jobs:
           - name: Cache Restore
             uses: actions/cache@v3
             with:
-              path: ${{ env.DOCKER_STACK_IMAGE_PATH }}
-              key: ${{ env.CACHE_KEY }}
+              path: container-image
+              key: ardent-container
 
           - name: Test with ${{ matrix.build_packs }}
             env:
               BUILD_NAME: ${{ matrix.build_packs }}
             run: |
               #              echo "Running: ${BUILD_NAME}"
-              docker load -i ${CACHE_KEY}
+              docker load -i ardent-container
               docker run -t --rm atolycs/ardentlinux:build
               
 
