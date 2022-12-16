@@ -28,7 +28,7 @@ jobs:
           id: cache-area
           with:
             path: ${{ inputs.export_path }}
-            key: ${{ inputs.stack_image }}-${{ hashFiles('**/Dockerfile') }}
+            key: ${{ inputs.stack_image }}-${{ hashFiles('**/Dockerfile','**/entrypoint.sh') }}
 
         - name: Building Container...
           if: steps.cache-area.outputs.cache-hit != 'true'
